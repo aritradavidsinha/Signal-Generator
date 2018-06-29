@@ -131,44 +131,13 @@ int main(void)
     EnableInterrupts();            /* Enable global Interrupt flag (I) */
 
     while(1) {
-        switch(flag){
-        case 1:
-            LTC1661_Write(wt[0][k]);/*0th row of he LUT contains the values for sine waveform */
-            x=(int)(100000/(96*f));/* Number of times we call the 32 us delay before sending out a sample */
-            for (i=0;i<x;i++)      /* Delay loop */
-                delay_32us();
-            k=k+1;                 /* Increment k to go the next value in LUT  */
-            if(k>=120)
-                k=0;
-            break;
-        case 2:
-            LTC1661_Write(wt[1][k]);
-            x=(int)(100000/(96*f));
-            for (i=0;i<x;i++)
-                delay_32us();
-            k=k+1;
-            if(k>=120)
-                k=0;
-            break;
-        case 3:
-            LTC1661_Write(wt[2][k]);
-            x=(int)(100000/(96*f));
-            for (i=0;i<x;i++)
-                delay_32us();
-            k=k+1;
-            if(k>=120)
-                k=0;
-            break;
-        case 4:
-            LTC1661_Write(wt[3][k]);
-            x=(int)(100000/(96*f));
-            for (i=0;i<x;i++)
-                delay_32us();
-            k=k+1;
-            if(k>=120)
-                k=0;
-            break;
-            }
+        LTC1661_Write(wt[flag-1][k]);/*0th row of he LUT contains the values for sine waveform */
+        x=(int)(100000/(96*f));/* Number of times we call the 32 us delay before sending out a sample */
+        for (i=0;i<x;i++)      /* Delay loop */
+            delay_32us();
+        k=k+1;                 /* Increment k to go the next value in LUT  */
+        if(k>=120)
+            k=0;
     }
 }
 
